@@ -20,6 +20,11 @@ object ExcelSave {
     if (parent != null && !parent.exists()) {
       parent.mkdirs()
     }
+
+    if (file.exists()) {
+      file.delete()
+    }
+
     val outputStream = new FileOutputStream(file)
     workbook.write(outputStream)
     outputStream.close()
