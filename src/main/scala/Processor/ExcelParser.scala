@@ -29,21 +29,6 @@ object ExcelParser {
         )
         .filter(row => row.lift(parameterColumn).exists(_.nonEmpty))
 
-    // val matrix = pre_matrix
-    //                   .zipWithIndex
-    //                   .map{ case(row,rowIndex) =>
-    //                       if (index == 0) {
-    //                            var newColumns = row.dropRight(1)
-    //                            newColumns = newColumns :+ "Type" :+ "value"
-    //                       }
-    //                       else {
-    //                             row.zipWithIndex
-    //                             .flatMap {
-    //                               case (cell,index) =>
-    //                               if (index == 2) cell.split(" ") else cell
-    //                             }
-    //                       }
-    //                   }
       pre_matrix.map( row => println(row.toString()))
       val matrix = splitMoneyValue(pre_matrix)
       
