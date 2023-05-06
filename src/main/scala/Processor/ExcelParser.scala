@@ -29,11 +29,11 @@ object ExcelParser {
         )
         .filter(row => row.lift(parameterColumn).exists(_.nonEmpty))
 
-      pre_matrix.map( row => println(row.toString()))
-      val matrix = splitMoneyValue(pre_matrix)
-      
-   
-        
+    var splited = splitMoneyValue(pre_matrix)
+    splited.map( row => println(row.toString()))
+
+    val matrix = removePayments(splited)
+
     matrix
   }
 
@@ -48,5 +48,14 @@ object ExcelParser {
       }
     }
   }
-  
+
+  private def removePayments(matrix: Seq[Seq[String]]): Seq[Seq[String]] = {
+
+    val filtered = matrix.head +: matrix.tail.filter { row =>
+                      val lastValue = row.last
+                      if(lastValue.toDouble > 0.0) true else false
+                  }
+
+    filtered
+  }
 }
