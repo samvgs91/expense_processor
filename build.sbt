@@ -7,3 +7,5 @@ version := "1.0"
 
 libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1"
 libraryDependencies += "org.apache.poi" % "poi" % "5.2.0"
+libraryDependencies += "org.apache.poi" % "poi-ooxml" % "5.2.0"
+// libraryDependencies += "org.apache.poi" % "poi-ooxml-schemas" % "5.2.0"
