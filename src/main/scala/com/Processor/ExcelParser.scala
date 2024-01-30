@@ -1,11 +1,15 @@
-package Processor
+package com.Processor
 
 import java.io.FileInputStream
 import org.apache.poi.ss.usermodel.{Cell, Row}
 import scala.collection.JavaConverters._
 import org.apache.poi.ss.usermodel.{Cell, CellType, DataFormatter, WorkbookFactory}
-import org.apache.poi.xssf.usermodel.{XSSFCell, XSSFRow, XSSFSheet, XSSFWorkbook}
-import App.Main
+// import org.apache.poi.xssf.usermodel.{XSSFCell, XSSFRow, XSSFSheet, XSSFWorkbook}
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import com.Model.CreditCardTransaction
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 object ExcelParser {
@@ -37,10 +41,28 @@ object ExcelParser {
     matrix
   }
 
+  def parseSeqRow(row:Seq[String]):CreditCardTransaction = {
+    val pk = 0
+    val dateString = row(0)
+    val dateFormat = new SimpleDateFormat("dd/MM/yyyy")
+    val date = dateFormat.parse(dateString)
+    val yearFormat = new SimpleDateFormat("yyyy", new Locale("es", "ES"))
+    val year = yearFormat.format(date).toInt
+    val monthFormat = new SimpleDateFormat("MMMM", new Locale("es", "ES"))
+    val monthName = monthFormat.format(date)
+    val monthNumber = new SimpleDateFormat("MM").format(date).toInt
+    val description = row(1)
+    val currency = row(2)
+    val amount = row(3).toDouble
+    val transaction = CreditCardTransaction(pk,date,year,monthName,monthNumber,0,"",0,"",description,currency,amount,0,0,0)
+    transaction
+  }
+
   private def splitMoneyValue(matrix: Seq[Seq[String]]): Seq[Seq[String]] = {
+
     matrix.zipWithIndex.map { case (row, index) =>
       if (index == 0) {
-        row.dropRight(2) ++ Seq("Type", "Value")
+        row.dropRight(2) ++ Seq("Tipo", "Monto")
       } else {
         val (init, last) = row.splitAt(2)
         val splitLast = last.head.split(" ")
