@@ -14,7 +14,7 @@ object ExcelCreditCardTransactionSave {
 
   def creditCardTransactionSave(fileName: String, rows: Seq[PBICreditCardTransaction]):Unit = {
     val workbook = new XSSFWorkbook()
-    val sheet = workbook.createSheet()
+    val sheet = workbook.createSheet("banco")
 
     val headerRow = sheet.createRow(0)
 
@@ -29,7 +29,8 @@ object ExcelCreditCardTransactionSave {
 
     for (i <- 0 until rows.length) {
       val row = sheet.createRow(i + 1)
-      val dateFormat = new SimpleDateFormat("yyyy/MM/dd")
+      // val dateFormat = new SimpleDateFormat("yyyy/MM/dd")
+      val dateFormat = new SimpleDateFormat("dd/MM/yyyy")
       val formatedDate = dateFormat.format(rows(i).Date)
 
       row.createCell(0).setCellValue(formatedDate)
