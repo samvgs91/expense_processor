@@ -39,5 +39,5 @@ libraryDependencies += "org.apache.poi" % "poi-ooxml" % "5.2.0"
 libraryDependencies += "org.apache.logging.log4j" % "log4j-core" % "2.21.1"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.10" % Test
 libraryDependencies += "com.lihaoyi" %% "upickle" % "0.9.5"
-
-
+libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.2.7"
+libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.6.17"
